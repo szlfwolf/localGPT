@@ -97,7 +97,7 @@ def load_quantized_model_qptq(model_id, model_basename, device_type, logging):
         # Remove the ".safetensors" ending if present
         model_basename = model_basename.replace(".safetensors", "")
 
-    tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True)
+    tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True, trust_remote_code=True)
     logging.info("Tokenizer loaded")
 
     model = AutoGPTQForCausalLM.from_quantized(
