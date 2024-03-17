@@ -8,6 +8,9 @@ from langchain.document_loaders import CSVLoader, PDFMinerLoader, TextLoader, Un
 from langchain.document_loaders import UnstructuredFileLoader, UnstructuredMarkdownLoader
 from langchain.document_loaders import UnstructuredHTMLLoader
 
+from os import getenv
+
+
 
 # load_dotenv()
 ROOT_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
@@ -17,7 +20,9 @@ SOURCE_DIRECTORY = f"{ROOT_DIRECTORY}/SOURCE_DOCUMENTS"
 
 PERSIST_DIRECTORY = f"{ROOT_DIRECTORY}/DB"
 
-MODELS_PATH = "./models"
+# linux:   ~/.cache/huggingface/hub
+# windows: C:\Users\username\.cache\huggingface\hub
+MODELS_PATH = getenv("HF_HOME")
 
 # Can be changed to a specific number
 INGEST_THREADS = os.cpu_count() or 8
@@ -29,7 +34,7 @@ CHROMA_SETTINGS = Settings(
 )
 
 # Context Window and Max New Tokens
-CONTEXT_WINDOW_SIZE = 4096
+CONTEXT_WINDOW_SIZE = 4096*2
 MAX_NEW_TOKENS = CONTEXT_WINDOW_SIZE  # int(CONTEXT_WINDOW_SIZE/4)
 
 #### If you get a "not enough space in the buffer" error, you should reduce the values below, start with half of the original values and keep halving the value until the error stops appearing

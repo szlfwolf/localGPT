@@ -9,6 +9,10 @@ from langchain.chains import RetrievalQA
 from streamlit_extras.add_vertical_space import add_vertical_space
 from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferMemory
+import logging
+
+logger = logging.getLogger('localGPT_UI')
+logger.setLevel(logging.INFO)
 
 
 def model_memory():
@@ -52,6 +56,7 @@ elif torch.cuda.is_available():
 else:
     DEVICE_TYPE = "cpu"
 
+logger.info(f'device={DEVICE_TYPE}')
 
 # if "result" not in st.session_state:
 #     # Run the document ingestion process.
